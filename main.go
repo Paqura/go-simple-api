@@ -23,8 +23,14 @@ type Author struct {
 
 var books []Book
 
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+}
+
 func getBooks(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+
+	enableCors(&w)
 	json.NewEncoder(w).Encode(books)
 }
 
